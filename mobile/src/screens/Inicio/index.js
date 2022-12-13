@@ -5,6 +5,7 @@ import { Avatar, Button, Input } from 'react-native-elements';
 import { styles } from './styles';
 
 import axios from 'axios';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 
 export function Inicio({ navigation }) {
 
@@ -19,7 +20,10 @@ export function Inicio({ navigation }) {
     .then((response) => {
         setEmail('')
         setSenha('')
-        response.data ? navigation.navigate('ListaProduto') : alert('Usuário incorreto!')
+        response.data ? navigation.navigate('ListaProduto') : showMessage({
+            message: "Usuário ou senha incorreto!",
+            type: "info",
+          });
     })
     .catch(error => console.log(error))
     }
@@ -30,6 +34,7 @@ export function Inicio({ navigation }) {
         style={styles.container}
         keyboardVerticalOffset={30}
     >
+        <FlashMessage position='top' hideStatusBar={true}/>
         <ScrollView
         showsVerticalScrollIndicator={false}
         >

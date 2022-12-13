@@ -39,8 +39,8 @@ export function ListaProduto({ navigation }) {
           <Card.Image source={{ uri: user.imagem}}/>
           <Card.Divider/>
             <Text style={styles.textCardSize}><Text style={styles.textCardBold}>Produto: </Text> {user.nome}</Text>
-            <Text style={styles.textCardSize}><Text style={styles.textCardBold}>Armazenamento: </Text> {user.capacidade}</Text>
-            <Text style={styles.textCardSize}><Text style={styles.textCardBold}>Valor: </Text> {user.preco}</Text>
+            <Text style={styles.textCardSize}><Text style={styles.textCardBold}>Armazenamento: </Text> {user.capacidade} GB</Text>
+            <Text style={styles.textCardSize}><Text style={styles.textCardBold}>Valor: </Text> R$ {user.preco}</Text>
          </Card>
       </TouchableOpacity>
     
@@ -50,7 +50,7 @@ export function ListaProduto({ navigation }) {
     <View>
 
       <Header
-        centerComponent={{ text: "Lista de Contatos", style: { color: "#fff", fontSize: 24 } }}
+        centerComponent={{ text: "Lista de Produtos", style: { color: "#fff", fontSize: 24 } }}
         rightComponent={
           <Button
             buttonStyle={styles.icon}

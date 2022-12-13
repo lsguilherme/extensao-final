@@ -5,6 +5,7 @@ import { Button, Header, Icon, Input } from 'react-native-elements';
 import { styles } from './styles';
 
 import axios from 'axios';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
 
 export function CadastroUsuario({ route, navigation }) {
 
@@ -34,7 +35,10 @@ export function CadastroUsuario({ route, navigation }) {
       setNome('')
       setEmail('')
       setSenha('')
-      alert('Conta criada com sucesso');
+      showMessage({
+        message: "Registro cadastrado com sucesso!",
+        type: "success",
+      });
     })
     .catch(error => console.log(error))
   }
@@ -50,7 +54,7 @@ export function CadastroUsuario({ route, navigation }) {
         <View 
         style={styles.container}>
           <Header
-            centerComponent={{ text: "Usuário", style: styles.title}}
+            centerComponent={{ text: "Cadastro de Usuário", style: styles.title}}
             leftComponent={
               <Button
               buttonStyle={styles.icon}
@@ -66,6 +70,7 @@ export function CadastroUsuario({ route, navigation }) {
               />
             }
             />
+            <FlashMessage position='top' hideStatusBar={true}/>
           
           <View style={styles.inputContainer}> 
           

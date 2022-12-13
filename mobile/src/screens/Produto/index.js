@@ -5,6 +5,7 @@ import { Button, Header, Icon, Input,  } from 'react-native-elements';
 import { styles } from './styles';
 
 import axios from 'axios';
+import FlashMessage, { showMessage } from 'react-native-flash-message';
 
 export function Produto({ route, navigation }) {
 
@@ -48,9 +49,15 @@ export function Produto({ route, navigation }) {
         setCapacidade('');
         setPreco('');
         setImagem('');
-        alert('Adicionado com sucesso!');
+        showMessage({
+          message: "Alterado com sucesso!",
+          type: "sucess",
+        })
     })
-    .catch(error => console.log(error));
+    .catch(()=>showMessage({
+      message: "Aconteceu algum erro!",
+      type: "info",
+    }))
   }
 
   async function alterarDados() {
@@ -61,7 +68,14 @@ export function Produto({ route, navigation }) {
         capacidade: getCapacidade,
         preco: getPreco,
         imagem: getImagem
-    }).then(() => alert('Alterado com sucesso!'))
+    }).then(() => showMessage({
+      message: "Alterado com sucesso!",
+      type: "sucess",
+    }))
+    .catch(()=>showMessage({
+      message: "Aconteceu algum erro!",
+      type: "info",
+    }))
   }
 
   async function excluirDados() {
@@ -73,9 +87,15 @@ export function Produto({ route, navigation }) {
         setCapacidade('');
         setPreco('');
         setImagem('');
-        alert('Excluído com sucesso!')
+        showMessage({
+          message: "Excluido com sucesso!",
+          type: "danger",
+        });
     })
-    .catch(error => console.log(error))
+    .catch(()=>showMessage({
+      message: "Aconteceu algum erro!",
+      type: "info",
+    }))
   }
 
 
@@ -84,26 +104,28 @@ export function Produto({ route, navigation }) {
     showsVerticalScrollIndicator={false}
     >
     <View style={styles.container}>
+    <FlashMessage position='center' hideStatusBar={true}/>
       <Header
         centerComponent={{
-          text: "Contato",
+          text: "Produto",
           style: { color: "#fff", fontSize: 24 },
         }}
         leftComponent={
           <Button
-              buttonStyle={styles.icon}
-              icon={
-                <Icon
-                  name='angle-left'
-                  type='font-awesome'
-                  color='#fff'
-                  size={32}
-                />
-                }
-                onPress={()=>navigation.goBack()}
-              />
+          buttonStyle={styles.icon}
+          icon={
+            <Icon
+            name='angle-left'
+            type='font-awesome'
+            color='#fff'
+            size={32}
+            />
           }
+          onPress={()=>navigation.goBack()}
+          />
+        }
       />
+        
 
       <View style={{ marginTop: 50 }}>
         <Input

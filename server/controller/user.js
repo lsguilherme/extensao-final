@@ -15,8 +15,8 @@ export const getLogin = (request, response) =>{
     
     db.query(q, (err, data) => {
         if(err) return response.json(err);
-        console.log(data)
-        response.json(data[0])
+        
+        response.json(data[0]);
     })
 }
 
