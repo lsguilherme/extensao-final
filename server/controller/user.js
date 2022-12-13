@@ -15,12 +15,8 @@ export const getLogin = (request, response) =>{
     
     db.query(q, (err, data) => {
         if(err) return response.json(err);
-        
-        if(data.length != 0){
-            return response.status(200).json("Usuário encontrado!");
-        } else{
-            return response.json("Usuário não encontrado!");
-        }
+        console.log(data)
+        response.json(data[0])
     })
 }
 

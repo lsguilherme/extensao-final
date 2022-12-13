@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, TouchableOpacity, View, Image } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Button, Header, Icon, Input,  } from 'react-native-elements';
 
 import { styles } from './styles';
@@ -80,7 +80,9 @@ export function Produto({ route, navigation }) {
 
 
   return (
-    <ScrollView>
+    <ScrollView
+    showsVerticalScrollIndicator={false}
+    >
     <View style={styles.container}>
       <Header
         centerComponent={{

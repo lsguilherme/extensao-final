@@ -1,16 +1,52 @@
-import React from 'react';
-import { KeyboardAvoidingView, ScrollView, TouchableOpacity, View, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import { Button, Header, Icon, Input } from 'react-native-elements';
 
 import { styles } from './styles';
 
+import axios from 'axios';
+
 export function CadastroUsuario({ route, navigation }) {
+
+  const [getNome, setNome] = useState();
+  const [getEmail, setEmail] = useState();
+  const [getSenha, setSenha] = useState();
+
+  useEffect(() => {
+    if(route.params) {
+      const { nome } = route.params;
+      const { email } = route.params;
+      const { senha } = route.params;
+      
+      setNome(nome);
+      setEmail(email);
+      setSenha(senha);
+    }
+  }, [])
+
+  async function cadastrar() {
+    await axios.post('http://10.0.0.100:8080/usuario',{
+      nome: getNome,
+      email: getEmail,
+      senha: getSenha 
+    })
+    .then(() => {
+      setNome('')
+      setEmail('')
+      setSenha('')
+      alert('Conta criada com sucesso');
+    })
+    .catch(error => console.log(error))
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
       keyboardVerticalOffset={30}
     >
-      <ScrollView>
+      <ScrollView
+      showsVerticalScrollIndicator={false}
+      >
         <View 
         style={styles.container}>
           <Header
@@ -34,10 +70,19 @@ export function CadastroUsuario({ route, navigation }) {
           <View style={styles.inputContainer}> 
           
             <Input
+              label='Nome'
+              placeholder='Nome'
+              containerStyle={styles.input}
+              onChangeText={text=>setNome(text)}
+              value={getNome}
+            />
+
+            <Input
               label='Email'
               placeholder='Email'
               containerStyle={styles.input}
-              
+              onChangeText={text=>setEmail(text)}
+              value={getEmail}
             />
             
             <Input
@@ -45,7 +90,8 @@ export function CadastroUsuario({ route, navigation }) {
               label='Senha'
               placeholder='Senha'
               containerStyle={styles.input}
-            
+              onChangeText={text=>setSenha(text)}
+              value={getSenha}
             />
           </View>
 

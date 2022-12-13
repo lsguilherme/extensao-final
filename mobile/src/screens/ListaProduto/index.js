@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { Avatar, Button, Card, Header, Icon, ListItem, Text } from 'react-native-elements';
+import { FlatList, TouchableOpacity, View } from 'react-native';
+import { Button, Card, Header, Icon, Text } from 'react-native-elements';
 
 import { styles } from "./styles";
 
 import axios from 'axios';
+
 export function ListaProduto({ navigation }) {
 
   const [getData, setData] = useState([]);

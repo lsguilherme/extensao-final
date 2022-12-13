@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, Text, View } from 'react-native';
 import { Avatar, Button, Input } from 'react-native-elements';
 
 import { styles } from './styles';
 
+import axios from 'axios';
+
 export function Inicio({ navigation }) {
+
+  const [getEmail, setEmail] = useState();
+  const [getSenha, setSenha] = useState();
+ 
+  async function login() {
+    await axios.post('http://10.0.0.100:8080/usuario/auth',{
+        email: getEmail,
+        senha: getSenha 
+    })
+    .then((response) => {
+        setEmail('')
+        setSenha('')
+        response.data ? navigation.navigate('ListaProduto') : alert('Usuário incorreto!')
+    })
+    .catch(error => console.log(error))
+    }
+
   return (
     <KeyboardAvoidingView 
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.container}
         keyboardVerticalOffset={30}
     >
-        <ScrollView>
+        <ScrollView
+        showsVerticalScrollIndicator={false}
+        >
         <View style={[styles.imagem, {alignItems:'center'}]}>
             <Avatar
                 rounded
@@ -29,15 +50,17 @@ export function Inicio({ navigation }) {
                 label="Email" 
                 placeholder="Email"
                 containerStyle={styles.inputContainerStyle}
-                
-                />
+                onChangeText={text => setEmail(text)}
+                value={getEmail}
+            />
             <Input
                 secureTextEntry={true}
                 label="Senha"
                 placeholder="Senha" 
                 containerStyle={styles.inputContainerStyle}
-                
-                />
+                onChangeText={text => setSenha(text)}
+                value={getSenha}
+            />
             
         </View>
         
@@ -46,7 +69,7 @@ export function Inicio({ navigation }) {
                 title="Entrar"
                 buttonStyle={styles.button}
 
-                onPress={()=>navigation.navigate('ListaProduto')}
+                onPress={()=>login()}
             />
             <Button 
                 title="Cadastrar-se"
