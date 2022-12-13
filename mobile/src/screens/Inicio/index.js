@@ -4,7 +4,7 @@ import { Avatar, Button, Input } from 'react-native-elements';
 
 import { styles } from './styles';
 
-export function Inicio() {
+export function Inicio({ navigation }) {
   return (
     <KeyboardAvoidingView 
         behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -46,7 +46,7 @@ export function Inicio() {
                 title="Entrar"
                 buttonStyle={styles.button}
 
-                onPress={()=>login()}
+                onPress={()=>navigation.navigate('ListaProduto')}
             />
             <Button 
                 title="Cadastrar-se"

@@ -29,7 +29,7 @@ export const addProduct = (request, response) => {
 }
 
 export const updateProduct = (request, response) =>{
-    const q = "UPDATE produtos SET `nome` = ?, `capacidade` = ?, `preco` = ?, `imagem` = ?WHERE `id` = ?";
+    const q = "UPDATE produtos SET `nome` = ?, `capacidade` = ?, `preco` = ?, `imagem` = ? WHERE `id` = ?";
 
     const values = [
         request.body.nome,
@@ -40,7 +40,7 @@ export const updateProduct = (request, response) =>{
 
     db.query(q, [...values, request.params.id], (err) => {
         if (err) return response.json(err);
-
+        
         return response.status(200).json("Produto alterado com sucesso!");
     })
 }
